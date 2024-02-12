@@ -1,3 +1,4 @@
+import { IInfo } from "@/types"
 // 상수 값(하드 코딩, 읽기 전용) 파일
 // example 글로벌 네비게이션 메뉴 이름
 /**
@@ -11,4 +12,13 @@
  * }
  * ```
  */
-export const globalMenus: string[] = ["전체메뉴1", "전체메뉴2", "전체메뉴3"];
+
+
+export const globalMenus: string[] = ["Profile", "Projects", "Info"];
+
+export const info: IInfo = {
+    name: "김민중",
+    nickName: "윌비배짱",
+    position: "프론트엔드 · 리액트 개발자",
+    email: "people-kim@startlight-sangdan.com"
+}

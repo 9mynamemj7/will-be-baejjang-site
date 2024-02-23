@@ -1,46 +1,55 @@
+'use client';
+
+import React, { useRef, useLayoutEffect } from 'react';
 import Image from "next/image";
+import Profile from '@/app/Profile/page';
+import Project from '@/app/Projects/page';
+import Info from '@/app/Info/page';
 import backgroundImage from "@/public/images/bg.jpg";
-import grass_video from "@/public/bi/grass_video.webp";
-import Navbar from "@/app/components/Navbar";
-import Stack from "@/app/components/Stack";
-import { info } from "@/constants";
-import TextPart from "@/app/components/TextPart";
+import trebleClef from "@/public/images/treble-clef.svg";
+import musicScore from "@/public/images/music_score.svg";
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+    const component = useRef<HTMLDivElement>(null);
+    const slider = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        let ctx = gsap.context(() => {
+            let panels = gsap.utils.toArray(".panel");
+            gsap.to(panels, {
+                xPercent: -100 * (panels.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: slider.current,
+                    pin: true,
+                    scrub: true,
+                    invalidateOnRefresh: true,
+                }
+            });
+        }, component);
+        return () => ctx.revert();
+    });
+    // bg-[url('/images/bg.jpg')]
     return (
-        <main className="absolute min-h-screen w-[300%]">
-            <section>
-                <div className="flex flex-col items-center w-2/6 h-screen">
-                    <div className="mx-10 my-8">
-                        <div className="w-[50rem] h-[5rem] mb-10">
-                            <Navbar />
+        <main className="min-h-screen">
+            <div ref={component}>
+                <div>
+                    <div ref={slider} className="flex w-[400vw] h-[100vh] ">
+                        <div className="panel w-[200vw] h-[200vh] bg-[url('/images/bg.jpg')]">
+                            <Profile />
                         </div>
-                        <div className="flex justify-center mb-10 pr-10 w-[100%] h-auto">
-                            <div className="mr-10">
-                                <Stack />
-                            </div>
-                            <div>
-                                <Image
-                                    className="rounded-2xl"
-                                    src={grass_video}
-                                    alt="grass"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <TextPart info={info} />
+                        <div className='panel w-[200vw] bg-gradient-to-r from-[rgb(223,227,226)] to-blue-500'>
                         </div>
                     </div>
+                    <div>
+                        finish
+                    </div>
                 </div>
-                <Image
-                    fill
-                    className="-z-50"
-                    src={backgroundImage}
-                    alt="main bg img"
-                    objectFit="cover"
-                    objectPosition="0"
-                />
-            </section>
+            </div>
         </main>
     );
 }

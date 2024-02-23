@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ko">
-            <body>{children}</body>
+            <body className="overflow-x-hidden p-0 m-0">{children}</body>
         </html>
     );
 }

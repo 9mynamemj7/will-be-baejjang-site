@@ -6,9 +6,13 @@ import { Button, Typography } from '@material-tailwind/react';
 import { globalMenus } from '@/constants';
 
 const Navbar = () => {
-    const bold = () => {
-        
-    }
+    const profile2home = (menu: string) => {
+        if (menu === "Profile") {
+            return "#"
+        } else {
+            return menu
+        }
+    };
     return (
         <div className='bg-white w-[100%] h-[100%] rounded-xl'>
             <div className='flex flex-row h-[100%] items-center justify-around'>
@@ -16,9 +20,9 @@ const Navbar = () => {
                 <div className='flex flex-row'>
                     {globalMenus.map(
                         (menu, index) => (
-                            <div className='px-3'>
-                                <Link href={`/${menu}`} key={index}>
-                                    <Typography placeholder className={ index === 0 ? 'font-bold' : ''}>
+                            <div className='px-3' key={index}>
+                                <Link href={`/${profile2home(menu)}`}>
+                                    <Typography placeholder='' className={ index === 0 ? 'font-bold' : ''}>
                                         {menu}
                                     </Typography>
                                 </Link>
